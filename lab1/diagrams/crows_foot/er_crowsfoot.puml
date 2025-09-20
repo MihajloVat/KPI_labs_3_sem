@@ -1,4 +1,45 @@
+@startuml
+!theme plain
+hide circle
+hide methods
 
+entity "Location" as loc {
+*address : string
+staff_count : int
+profit : decimal
+costs : decimal
+income : decimal
+is_open : bool
+}
+
+entity "Document" as doc {
+*name : string
+issue_date : date
+expire_date : date
+is_active : bool
+}
+
+entity "Employee" as emp {
+*full_name : string
+age : int
+shift : string
+position : string
+salary : int
+phone : string
+}
+
+entity "Menu" as menu {
+*title : string
+}
+
+entity "Item" as item {
+*title : string
+price : int
+sold_num : int
+recipe : string
+}
+
+@enduml
 
 
 
