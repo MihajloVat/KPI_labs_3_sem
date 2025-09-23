@@ -5,18 +5,19 @@ hide methods
 
 entity "Location" as loc {
 *address : string
-staff_count : int
-profit : decimal
-costs : decimal
-income : decimal
+profit : decimal <<d>>
+costs : decimal <<d>>
+income : decimal <<d>>
+staff_count : int <<d>>
 is_open : bool
 }
 
 entity "Document" as doc {
-*name : string
+*title : string
+#loc_address : string
 issue_date : date
 expire_date : date
-is_active : bool
+is_active : bool <<d>>
 }
 
 entity "Employee" as emp {
@@ -38,6 +39,11 @@ price : int
 sold_num : int
 recipe : string
 }
+
+loc ||--o{ doc : "requires"
+loc }|--|{ menu : "has"
+loc ||--o{ emp : "has"
+menu }|--|{ item : "includes"
 
 @enduml
 
