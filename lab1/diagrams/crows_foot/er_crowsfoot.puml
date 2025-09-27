@@ -37,7 +37,7 @@ entity "Item" as item {
 *title : string
 price : int
 sold_num : int
-recipe : string
+recipe : string <<o>>
 }
 
 loc ||--o{ doc : "requires"

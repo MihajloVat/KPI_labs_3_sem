@@ -2,20 +2,21 @@
 class Location {
 
      // @param {string} address
-     // @param {number} profit
-     // @param {number} costs
-     // @param {number} income
-     // @param {number} staff_count
      // @param {boolean} is_open
+     // @type {number} profit (derived)
+     // @type {number} costs (derived)
+     // @type {number} income (derived)
+     // @type {number} staff_count (derived)
 
-    constructor(address, profit, costs, income, staff_count, is_open) {
+    constructor(address, is_open) {
         this.address = address; // PK
-        this.profit = profit;
-        this.costs = costs;
-        this.income = income;
-        this.staff_count = staff_count;
         this.is_open = is_open;
     }
+
+    get profit(){}
+    get costs(){}
+    get income(){}
+    get staff_count(){}
 }
 
 class Document {
@@ -24,15 +25,17 @@ class Document {
      // @param {string} loc_address
      // @param {Date} issue_date
      // @param {Date} expire_date
-     // @param {boolean} is_active
+     // @type {boolean} is_active (derived)
 
-    constructor(title, loc_address, issue_date, expire_date, is_active) {
-        this.title = title; // PK
+    constructor(title, loc_address, issue_date, expire_date) {
+        this.title = title; // partial key
         this.loc_address = loc_address; // FK
         this.issue_date = issue_date;
         this.expire_date = expire_date;
-        this.is_active = is_active;
     }
+
+    get is_active() {}
+
 }
 
 class Employee {
@@ -43,24 +46,27 @@ class Employee {
      // @param {string} position
      // @param {number} salary
      // @param {string} phone
+     // @param {string} loc_address
 
-    constructor(full_name, age, shift, position, salary, phone) {
+    constructor(full_name, age, shift, position, salary, phone, loc_address) {
         this.full_name = full_name; // PK
         this.age = age;
         this.shift = shift;
         this.position = position;
         this.salary = salary;
         this.phone = phone;
+        this.loc_address = loc_address; //FK
     }
 }
 
 class Menu {
 
      // @param {string} title
+     // @param {string} loc_address
 
-    constructor(title) {
+    constructor(title, loc_address) {
         this.title = title; // PK
-
+        this.loc_address = loc_address; //FK
     }
 }
 
@@ -69,12 +75,14 @@ class Item {
      // @param {string} title
      // @param {number} price
      // @param {number} sold_num
-     // @param {string} recipe
+     // @param {string} recipe (optional)
+     // @param {string} loc_address
 
-    constructor(title, price, sold_num, recipe) {
+    constructor(title, price, sold_num, menu_title, recipe) {
         this.title = title; // PK
         this.price = price;
         this.sold_num = sold_num;
-        this.recipe = recipe;
+        this.menu_title = menu_title; //FK
+        this.recipe = recipe || null;
     }
 }
