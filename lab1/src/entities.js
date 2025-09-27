@@ -25,13 +25,15 @@ class Document {
      // @param {string} loc_address
      // @param {Date} issue_date
      // @param {Date} expire_date
+     // @param {string} emp_name
      // @type {boolean} is_active (derived)
 
-    constructor(title, loc_address, issue_date, expire_date) {
+    constructor(title, loc_address, issue_date, expire_date,emp_name) {
         this.title = title; // partial key
         this.loc_address = loc_address; // FK
         this.issue_date = issue_date;
         this.expire_date = expire_date;
+        this.emp_name = emp_name || null;
     }
 
     get is_active() {}
