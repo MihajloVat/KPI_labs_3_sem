@@ -44,6 +44,7 @@ loc ||--o{ doc : "requires"
 loc }|--|{ menu : "has"
 loc ||--o{ emp : "has"
 menu }|--|{ item : "includes"
+doc }o--o{ emp : "includes"
 
 @enduml
 
