@@ -35,16 +35,21 @@ entity "Menu" as menu {
 
 entity "Item" as item {
 *title : string
-price : int
-sold_num : int
 recipe : string <<o>>
 }
+
+entity "Sold" as sold {
+#date : date
+price : decimal
+}
+
 
 loc ||--o{ doc : "requires"
 loc }|--|{ menu : "has"
 loc ||--o{ emp : "has"
 menu }|--|{ item : "includes"
-doc }o--o{ emp : "includes"
+doc }o--o{ emp : "has"
+item ||--o{ sold : "was"
 
 @enduml
 

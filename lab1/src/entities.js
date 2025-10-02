@@ -25,7 +25,7 @@ class Document {
      // @param {string} loc_address
      // @param {Date} issue_date
      // @param {Date} expire_date
-     // @param {string} emp_name
+     // @param {string} emp_name (optional)
      // @type {boolean} is_active (derived)
 
     constructor(title, loc_address, issue_date, expire_date,emp_name) {
@@ -33,7 +33,7 @@ class Document {
         this.loc_address = loc_address; // FK
         this.issue_date = issue_date;
         this.expire_date = expire_date;
-        this.emp_name = emp_name || null;
+        this.emp_name = emp_name || null; //FK
     }
 
     get is_active() {}
@@ -50,7 +50,7 @@ class Employee {
      // @param {string} phone
      // @param {string} loc_address
 
-    constructor(full_name, age, shift, position, salary, phone, loc_address) {
+    constructor(full_name, age, shift, position, salary, phone, loc_address, doc_title) {
         this.full_name = full_name; // PK
         this.age = age;
         this.shift = shift;
@@ -58,6 +58,7 @@ class Employee {
         this.salary = salary;
         this.phone = phone;
         this.loc_address = loc_address; //FK
+        this.doc_title = doc_title || null;//FK
     }
 }
 
@@ -75,8 +76,6 @@ class Menu {
 class Item {
 
      // @param {string} title
-     // @param {number} price
-     // @param {number} sold_num
      // @param {string} recipe (optional)
      // @param {string} loc_address
 
@@ -86,5 +85,17 @@ class Item {
         this.sold_num = sold_num;
         this.menu_title = menu_title; //FK
         this.recipe = recipe || null;
+    }
+}
+
+class Sold {
+
+    // @param {data} date
+    // @param {number} price
+
+    constructor(date, price, item) {
+        this.date = date; // partial key
+        this.item = item; //FK
+        this.price = price;
     }
 }
