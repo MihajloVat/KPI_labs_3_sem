@@ -4,7 +4,7 @@ hide circle
 hide methods
 
 entity "Location" as loc {
-*address : string
+*address : string <<PK>>
 profit : decimal <<d>>
 costs : decimal <<d>>
 income : decimal <<d>>
@@ -13,15 +13,15 @@ is_open : bool
 }
 
 entity "Document" as doc {
-*title : string
-#loc_address : string
+*title : string <<pk>>
+*loc_address : string <<pk,FK>>
 issue_date : date
 expire_date : date
 is_active : bool <<d>>
 }
 
 entity "Employee" as emp {
-*full_name : string
+*full_name : string <<PK>>
 age : int
 shift : string
 position : string
@@ -30,26 +30,32 @@ phone : string
 }
 
 entity "Menu" as menu {
-*title : string
+*title : string <<PK>>
 }
 
 entity "Item" as item {
-*title : string
+*title : string <<PK>>
 recipe : string <<o>>
 }
 
 entity "Sold" as sold {
-#date : date
+*date : date <<pk>>
+*item_title : string <<pk,FK>>
 price : decimal
 }
 
+entity "EmployeeDoc" as empDoc {
+*doc_title : string <<pk,FK>>
+*full_name : string <<pk,Fk>>
+}
 
 loc ||--o{ doc : "requires"
 loc }|--|{ menu : "has"
 loc ||--o{ emp : "has"
-menu }|--|{ item : "includes"
-doc }o--o{ emp : "has"
+menu ||--|{ item : "includes"
 item ||--o{ sold : "was"
+doc ||--o{ empDoc
+empDoc }o--|| emp
 
 @enduml
 
