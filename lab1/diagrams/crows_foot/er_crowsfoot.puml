@@ -6,8 +6,6 @@ hide methods
 entity "Location" as loc {
 *address : string <<PK>>
 profit : decimal <<d>>
-costs : decimal <<d>>
-income : decimal <<d>>
 staff_count : int <<d>>
 is_open : bool
 }
@@ -15,9 +13,9 @@ is_open : bool
 entity "Document" as doc {
 *title : string <<pk>>
 *loc_address : string <<pk,FK>>
-issue_date : date
-expire_date : date
-is_active : bool <<d>>
+issue_date : date <<o>>
+expire_date : date <<o>>
+is_active : bool <<d|m>>
 }
 
 entity "Employee" as emp {
@@ -35,21 +33,24 @@ entity "Menu" as menu {
 
 entity "Item" as item {
 *title : string <<PK>>
+current_price : decimal
 recipe : string <<o>>
 }
 
-entity "Sold" as sold {
+entity "SoldOnDay" as sold {
 *date : date <<pk>>
 *item_title : string <<pk,FK>>
 price : decimal
+amount : int
 }
 
 entity "EmployeeDoc" as empDoc {
 *doc_title : string <<pk,FK>>
+*loc_address : string <<pk,FK>>
 *full_name : string <<pk,Fk>>
 }
 
-loc ||--o{ doc : "requires"
+loc ||--|{ doc : "requires"
 loc }|--|{ menu : "has"
 loc ||--o{ emp : "has"
 menu ||--|{ item : "includes"

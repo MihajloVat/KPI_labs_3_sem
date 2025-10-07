@@ -4,8 +4,6 @@ class Location {
      // @param {string} address
      // @param {boolean} is_open
      // @type {number} profit (derived)
-     // @type {number} costs (derived)
-     // @type {number} income (derived)
      // @type {number} staff_count (derived)
 
     constructor(address, is_open) {
@@ -14,8 +12,6 @@ class Location {
     }
 
     get profit(){}
-    get costs(){}
-    get income(){}
     get staff_count(){}
 }
 
@@ -23,19 +19,25 @@ class Document {
 
      // @param {string} title
      // @param {string} loc_address
-     // @param {Date} issue_date
-     // @param {Date} expire_date
-     // @param {string} emp_name (optional)
+     // @param {Date} issue_date (optional)
+     // @param {Date} expire_date (optional)
+     // @param {boolean} is_active_m (optional)
      // @type {boolean} is_active (derived)
 
-    constructor(title, loc_address, issue_date, expire_date) {
+    constructor(title, loc_address, issue_date, expire_date,is_active_m) {
         this.title = title; //pk
         this.loc_address = loc_address; // FK
-        this.issue_date = issue_date;
-        this.expire_date = expire_date;
+        this.issue_date = issue_date || null;
+        this.expire_date = expire_date || null;
+        this.is_active_m = is_active_m || null;
     }
 
-    get is_active() {}
+    get is_active() {
+        if (this.is_active_m !== null) {
+            return this.is_active_m;
+        }
+        //...
+    }
 
 }
 
@@ -57,7 +59,6 @@ class Employee {
         this.salary = salary;
         this.phone = phone;
         this.loc_address = loc_address; //FK
-        this.doc_title = doc_title || null;//FK
     }
 }
 
@@ -67,17 +68,21 @@ class EmployeeDoc {
     // @param {object} documentInst
     // @type {string} employeeInst.full_name
     // @type {string} documentInst.title
+    // @type {string} documentInst.loc_address
 
     constructor(employeeInst,documentInst) {
         this.employeeInst = employeeInst;
         this.documentInst = documentInst;
     }
 
-    get employeeName() {
+    get employee_name() {
         return this.employeeInst.full_name; //pk,FK
     }
-    get documentTitle() {
+    get document_title() {
         return this.documentInst.title; //pk,FK
+    }
+    get loc_address() {
+        return this.documentInst.loc_address; //pk,FK
     }
 }
 
@@ -95,13 +100,13 @@ class Menu {
 class Item {
 
      // @param {string} title
+     // @param {number} current_price
+     // @param {string} menu_title
      // @param {string} recipe (optional)
-     // @param {string} loc_address
 
-    constructor(title, price, sold_num, menu_title, recipe) {
+    constructor(title, current_price, menu_title, recipe) {
         this.title = title; //PK
-        this.price = price;
-        this.sold_num = sold_num;
+        this.current_price = current_price;
         this.menu_title = menu_title; //FK
         this.recipe = recipe || null;
     }
@@ -110,11 +115,14 @@ class Item {
 class Sold {
 
     // @param {data} date
+    // @param {string} item_title
+    // @param {number} amount
     // @param {number} price
 
-    constructor(date, price, item) {
+    constructor(date, item_title, amount, price) {
         this.date = date; //pk
-        this.item = item; //pk,FK
+        this.item_title = item_title; //pk,FK
+        this.amount = amount;
         this.price = price;
     }
 }
