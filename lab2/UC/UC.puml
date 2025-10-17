@@ -1,0 +1,93 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecaseBorderColor #1D2A3B
+skinparam usecaseBackgroundColor #ADD1B2
+skinparam actorBorderColor #1D2A3B
+skinparam actorBackgroundColor #ADD1B2
+skinparam linetype ortho
+
+actor Користувач as User
+actor "Банк API" as BankAPI
+actor Застосунок as App
+
+(Знайти валюту) as FindCurrency
+(Знайти за назвою) as FindByName
+(Знайти за кодом) as FindByCode
+(Знайти за фільтрами) as FindByFilters
+(Встановити базову валюту) as SetBaseCurrency
+(Переглянути курс валюти) as ViewCurrencyRate
+(Скористуватись конвертером) as UseConverter
+(Змінити валюту 1) as ChangeCurrency1
+(Змінити валюту 2) as ChangeCurrency2
+(Ввести кількість валюти) as EnterAmount
+(Переглянути історію валюти) as ViewHistory
+(Порівняти історію декількох валют) as CompareHistory
+(Обрати формат відображення історії) as SelectHistoryFormat
+(Переглянути графік історії) as ViewChart
+(Переглянути табличку історії) as ViewTable
+(Поставити сповіщення про оновлення валюти) as SetAlert
+(Отримати сповіщення про оновлення валюти) as GetAlert
+
+(Надіслати дані) as SendData
+(Надіслати сповіщення) as SendNotification
+(Отримати дані) as GetData
+(Перевірити наявність з'єдняння) as CheckConnection
+(Обробити дані) as ProcessData
+(Ініціалізувати сповіщення про оновлення валюти) as InitAlert
+(з АPI) as FromAPI
+(з КЕШУ) as FromCache
+
+User --> FindCurrency
+User --> SetBaseCurrency
+User --> ViewCurrencyRate
+User --> UseConverter
+User --> ViewHistory
+User --> CompareHistory
+User --> SelectHistoryFormat
+User --> SetAlert
+User --> GetAlert
+
+BankAPI --> SendData
+BankAPI --> SendNotification
+
+App --> GetData
+App --> CheckConnection
+App --> ProcessData
+App --> InitAlert
+
+FindCurrency <|-- FindByName
+FindCurrency <|-- FindByCode
+FindCurrency <|-- FindByFilters
+
+UseConverter <|-- ChangeCurrency1
+UseConverter <|-- ChangeCurrency2
+UseConverter <|-- EnterAmount
+
+SelectHistoryFormat <|-- ViewChart
+SelectHistoryFormat <|-- ViewTable
+
+GetData <|-- FromAPI
+GetData <|-- FromCache
+
+ViewCurrencyRate .> FindCurrency
+ViewCurrencyRate .> SetBaseCurrency
+
+UseConverter .> ProcessData
+CompareHistory .> ProcessData
+ViewHistory .> ProcessData
+GetAlert .> ProcessData
+
+ViewHistory .> SelectHistoryFormat
+CompareHistory .> SelectHistoryFormat
+
+GetAlert .> SendNotification
+GetAlert .> SetAlert
+GetAlert .> InitAlert
+
+FromAPI .> SendData
+
+ProcessData .> GetData
+ProcessData .> CheckConnection
+
+@enduml
