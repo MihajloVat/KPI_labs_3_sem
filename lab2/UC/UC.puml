@@ -11,36 +11,35 @@ actor Користувач as User
 actor "Банк API" as BankAPI
 actor Застосунок as App
 
-(Знайти валюту) as FindCurrency
+(Знайти валюту) as FindCurr
 (Знайти за назвою) as FindByName
 (Знайти за кодом) as FindByCode
 (Знайти за фільтрами) as FindByFilters
-(Встановити базову валюту) as SetBaseCurrency
-(Переглянути курс валюти) as ViewCurrencyRate
+(Встановити базову валюту) as SetBaseCurr
+(Переглянути курс валюти) as ViewCurrRate
 (Скористуватись конвертером) as UseConverter
-(Змінити валюту 1) as ChangeCurrency1
-(Змінити валюту 2) as ChangeCurrency2
+(Змінити валюту 1) as ChangeCurr1
+(Змінити валюту 2) as ChangeCurr2
 (Ввести кількість валюти) as EnterAmount
 (Переглянути історію валюти) as ViewHistory
 (Порівняти історію декількох валют) as CompareHistory
 (Обрати формат відображення історії) as SelectHistoryFormat
-(Переглянути графік історії) as ViewChart
-(Переглянути табличку історії) as ViewTable
+(Графік) as Chart
+(Табличка) as Table
 (Поставити сповіщення про оновлення валюти) as SetAlert
 (Отримати сповіщення про оновлення валюти) as GetAlert
-
 (Надіслати дані) as SendData
-(Надіслати сповіщення) as SendNotification
+(Надіслати сповіщення) as SendNotif
 (Отримати дані) as GetData
 (Перевірити наявність з'єдняння) as CheckConnection
-(Обробити дані) as ProcessData
+(Обробити дані) as ProcData
 (Ініціалізувати сповіщення про оновлення валюти) as InitAlert
 (з АPI) as FromAPI
 (з КЕШУ) as FromCache
 
-User --> FindCurrency
-User --> SetBaseCurrency
-User --> ViewCurrencyRate
+User --> FindCurr
+User --> SetBaseCurr
+User --> ViewCurrRate
 User --> UseConverter
 User --> ViewHistory
 User --> CompareHistory
@@ -49,45 +48,46 @@ User --> SetAlert
 User --> GetAlert
 
 BankAPI --> SendData
-BankAPI --> SendNotification
+BankAPI --> SendNotif
 
 App --> GetData
 App --> CheckConnection
-App --> ProcessData
+App --> ProcData
 App --> InitAlert
 
-FindCurrency <|-- FindByName
-FindCurrency <|-- FindByCode
-FindCurrency <|-- FindByFilters
+FindCurr <|-- FindByName
+FindCurr <|-- FindByCode
+FindCurr <|-- FindByFilters
 
-UseConverter <|-- ChangeCurrency1
-UseConverter <|-- ChangeCurrency2
+UseConverter <|-- ChangeCurr1
+UseConverter <|-- ChangeCurr2
 UseConverter <|-- EnterAmount
 
-SelectHistoryFormat <|-- ViewChart
-SelectHistoryFormat <|-- ViewTable
+SelectHistoryFormat <|-- Chart
+SelectHistoryFormat <|-- Table
 
 GetData <|-- FromAPI
 GetData <|-- FromCache
 
-ViewCurrencyRate .> FindCurrency
-ViewCurrencyRate .> SetBaseCurrency
+ViewCurrRate .> FindCurr
+ViewCurrRate .> SetBaseCurr
 
-UseConverter .> ProcessData
-CompareHistory .> ProcessData
-ViewHistory .> ProcessData
-GetAlert .> ProcessData
+UseConverter .> ProcData
+CompareHistory .> ProcData
+ViewHistory .> ProcData
+GetAlert .> ProcData
 
 ViewHistory .> SelectHistoryFormat
 CompareHistory .> SelectHistoryFormat
 
-GetAlert .> SendNotification
+GetAlert .> SendNotif
 GetAlert .> SetAlert
 GetAlert .> InitAlert
 
 FromAPI .> SendData
 
-ProcessData .> GetData
-ProcessData .> CheckConnection
+ProcData .> GetData
+
+GetData .> CheckConnection
 
 @enduml
