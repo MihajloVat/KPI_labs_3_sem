@@ -14,12 +14,10 @@ actor Застосунок as App
 (Знайти валюту) as FindCurr
 (Знайти за назвою) as FindByName
 (Знайти за кодом) as FindByCode
-(Знайти за фільтрами) as FindByFilters
 (Встановити базову валюту) as SetBaseCurr
 (Переглянути курс валюти) as ViewCurrRate
 (Скористуватись конвертером) as UseConverter
-(Змінити валюту 1) as ChangeCurr1
-(Змінити валюту 2) as ChangeCurr2
+(Змінити валюту) as ChangeCurr
 (Ввести кількість валюти) as EnterAmount
 (Переглянути історію валюти) as ViewHistory
 (Порівняти історію декількох валют) as CompareHistory
@@ -57,10 +55,8 @@ App --> InitAlert
 
 FindCurr <|-- FindByName
 FindCurr <|-- FindByCode
-FindCurr <|-- FindByFilters
 
-UseConverter <|-- ChangeCurr1
-UseConverter <|-- ChangeCurr2
+UseConverter <|-- ChangeCurr
 UseConverter <|-- EnterAmount
 
 SelectHistoryFormat <|-- Chart
@@ -71,6 +67,10 @@ GetData <|-- FromCache
 
 ViewCurrRate .> FindCurr
 ViewCurrRate .> SetBaseCurr
+
+ChangeCurr .> FindCurr
+CompareHistory .> FindCurr
+ViewHistory .> FindCurr
 
 UseConverter .> ProcData
 CompareHistory .> ProcData
