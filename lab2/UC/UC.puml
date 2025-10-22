@@ -12,8 +12,6 @@ actor "Банк API" as BankAPI
 actor Застосунок as App
 
 (Знайти валюту) as FindCurr
-(Знайти за назвою) as FindByName
-(Знайти за кодом) as FindByCode
 (Встановити базову валюту) as SetBaseCurr
 (Переглянути курс валюти) as ViewCurrRate
 (Скористуватись конвертером) as UseConverter
@@ -22,8 +20,6 @@ actor Застосунок as App
 (Переглянути історію валюти) as ViewHistory
 (Порівняти історію декількох валют) as CompareHistory
 (Обрати формат відображення історії) as SelectHistoryFormat
-(Графік) as Chart
-(Табличка) as Table
 (Поставити сповіщення про оновлення валюти) as SetAlert
 (Отримати сповіщення про оновлення валюти) as GetAlert
 (Надіслати дані) as SendData
@@ -32,8 +28,6 @@ actor Застосунок as App
 (Перевірити наявність з'єдняння) as CheckConnection
 (Обробити дані) as ProcData
 (Ініціалізувати сповіщення про оновлення валюти) as InitAlert
-(з АPI) as FromAPI
-(з КЕШУ) as FromCache
 
 User --> FindCurr
 User --> SetBaseCurr
@@ -53,17 +47,8 @@ App --> CheckConnection
 App --> ProcData
 App --> InitAlert
 
-FindCurr <|-- FindByName
-FindCurr <|-- FindByCode
-
 UseConverter <|-- ChangeCurr
 UseConverter <|-- EnterAmount
-
-SelectHistoryFormat <|-- Chart
-SelectHistoryFormat <|-- Table
-
-GetData <|-- FromAPI
-GetData <|-- FromCache
 
 ViewCurrRate .> FindCurr
 ViewCurrRate .> SetBaseCurr
@@ -84,10 +69,9 @@ GetAlert .> SendNotif
 GetAlert .> SetAlert
 GetAlert .> InitAlert
 
-FromAPI .> SendData
-
 ProcData .> GetData
 
 GetData .> CheckConnection
+GetData .> SendData
 
 @enduml
