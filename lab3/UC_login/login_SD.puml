@@ -1,0 +1,24 @@
+@startuml
+title Авторизація користувача
+
+actor "Користувач" as User
+participant "Система" as Sys
+participant "База даних" as DB
+
+loop поки доступ відмовлено
+User->Sys : 1. Ввід даних
+activate Sys
+Sys->DB : 2. Запит до бази
+activate DB
+DB-->Sys : 3. Відповідь бази
+deactivate DB
+
+alt Авторизація успішна
+Sys->User : 4. Доступ надано
+else Авторизацію провалено
+Sys->User : 5. Доступ відмовлено
+end
+deactivate Sys
+end
+
+@enduml

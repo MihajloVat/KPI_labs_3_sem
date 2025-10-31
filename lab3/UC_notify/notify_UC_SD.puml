@@ -1,19 +1,31 @@
 @startuml
-title Sequence diagram of use case "Отримати сповіщення про оновлення валюти"
+title Отримання користувачем сповіщення про оновлення валюти
+
 
 actor Користувач as User
 participant "Застосунок" as App
 participant "Банк API" as API
 
 User -> App : 1. Поставити сповіщення
+activate App
+deactivate App
 
 loop поки дані не оновляться
-    App -> API : 2. Запросити дані
-    API --> App : 3. Отримати дані
+App -> API : 2. Запросити дані
+activate App
+activate API
+API --> App : 3. Отримати дані
+deactivate API
 end
-destroy API
+
+note right
+        Застосунок періодично перевіряє
+        актуальні дані з API.
+end note
+
+deactivate API
 
 App -> User : 4. Надіслати сповіщення
 
-destroy App
+deactivate App
 @enduml
