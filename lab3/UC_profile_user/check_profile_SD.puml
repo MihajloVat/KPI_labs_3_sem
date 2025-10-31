@@ -1,0 +1,24 @@
+@startuml
+title Перегляд профілю іншого користувача
+
+actor "Користувач" as User
+participant "Застосунок" as App
+participant "База даних" as DB
+
+User->App : Запит переглянути профіль
+activate App
+
+App->DB : 2. Запит до бази
+activate DB
+DB-->App : 3. Відповідь бази
+deactivate DB
+
+App->User : 4.Відображення профілю
+
+opt Користувач в мережі
+App->User : 5. Показати статус ''В мережі''
+end
+
+deactivate App
+
+@enduml

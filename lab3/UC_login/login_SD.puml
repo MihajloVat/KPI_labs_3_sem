@@ -13,9 +13,9 @@ activate DB
 DB-->Sys : 3. Відповідь бази
 deactivate DB
 
-alt Авторизація успішна
+alt Дані коректні
 Sys->User : 4. Доступ надано
-else Авторизацію провалено
+else Дані некоректні
 Sys->User : 5. Доступ відмовлено
 end
 deactivate Sys
