@@ -1,0 +1,13 @@
+@startuml
+title Переказ коштів (зі сторони відправника)
+
+autonumber
+
+actor Користувач as User
+participant Застосунок as App
+participant "Сервер банку" as BS
+participant "База даних" as DB
+participant "Банк-отримувач" as RB
+
+@enduml
+
