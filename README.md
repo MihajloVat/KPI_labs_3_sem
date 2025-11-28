@@ -6,3 +6,4 @@
 - [Лабораторна 1](lab1/README.md) — Entity Relationship (система менеджменту мережі кав'ярень)
 - [Лабораторна 2](lab2/README.md) — Use Case (система перегляду та аналізу курсів валют)
 - [Лабораторна 3](lab3/README.md) — Sequence diagram (4 приклади)
+- [Лабораторна 4](lab4/README.md) — Activity and BPMN (транзакція між банками)
